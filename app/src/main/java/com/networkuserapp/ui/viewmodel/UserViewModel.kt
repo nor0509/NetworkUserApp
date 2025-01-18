@@ -1,36 +1,25 @@
 package com.networkuserapp.ui.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.networkuserapp.data.local.entity.UserEntity
-import com.networkuserapp.data.repository.UserRepository
+import com.networkuserapp.domain.usecase.GetUsersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val getUsersUseCase: GetUsersUseCase
 ) : ViewModel() {
 
-    fun upsertUser(user: UserEntity) = viewModelScope.launch {
-        userRepository.upsertUser(user)
-    }
+    private val users = MutableLiveData<List<UserEntity>>()
 
-    fun deleteUser(user: UserEntity) = viewModelScope.launch {
-        userRepository.deleteUser(user)
-    }
-
-    suspend fun getAllUsers(): Flow<List<UserEntity>> {
-        return userRepository.getUserOrderedByLastName()
-    }
-
-    suspend fun getUserById(id: Int): UserEntity? {
-        return userRepository.getUserById(id)
-    }
-
-    suspend fun getUserOrderedByFirstName(name: String): UserEntity? {
-        return userRepository.getUserOrderedByFirstName(name)
+    fun fetchUsers() {
+        viewModelScope.launch {
+            val userList = getUsersUseCase.execute()
+            users.postValue(userList)
+        }
     }
 }
