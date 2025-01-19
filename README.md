@@ -6,6 +6,9 @@
 **Norbert Kabziński, Ksawery Kosarski, Łukasz Serwatka, and Mikołaj Ćmok**
 
 NetworkUserApp is an Android application designed to fetch and display user data from a remote API (JSONPlaceholder) and show it within a simple UI built using Jetpack Compose. The app allows users to view a list of users.
+
+![Image](https://github.com/user-attachments/assets/29a75048-ffaa-42fa-90b4-92c74e864db3)
+
 ## Features
 API Integration: Fetches user data from JSONPlaceholder.
 
