@@ -1,8 +1,8 @@
 package com.networkuserapp.data.di
 
-import com.networkuserapp.data.api.ApiService
 import android.content.Context
 import androidx.room.Room
+import com.networkuserapp.data.api.ApiService
 import com.networkuserapp.data.api.RetrofitInstance
 import com.networkuserapp.data.local.dao.UserDao
 import com.networkuserapp.data.local.database.AppDatabase
@@ -13,6 +13,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -44,9 +45,18 @@ object AppModule {
     @Singleton
     fun provideUserRepository(
         apiService: ApiService,
-        userDao: UserDao
+        userDao: UserDao,
+
     ): UserRepository {
         return UserRepository(apiService, userDao)
     }
+
+    @Provides
+    @Singleton
+    fun provideContext(@ApplicationContext context: Context): Context {
+        return context
+    }
 }
+
+
 
