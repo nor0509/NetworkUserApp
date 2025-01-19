@@ -86,4 +86,3 @@ The UserRepository manages the fetching of data from the API and local database.
 
 **Hilt:** For dependency injection.
 
-**Coroutines:** To handle asynchronous tasks.
